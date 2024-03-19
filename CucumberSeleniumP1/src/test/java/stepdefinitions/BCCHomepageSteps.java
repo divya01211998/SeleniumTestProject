@@ -31,7 +31,6 @@ public class BCCHomepageSteps{
 		System.setProperty("webdriver.chrome.driver","C:\\Selenium WebDriver\\ChromeDriver\\chromedriver-win64\\chromedriver.exe");
 	driver=new ChromeDriver();
 	driver.manage().window().maximize();
-	//driver.getTitle();
 	}
 	
 	@After
@@ -43,11 +42,6 @@ public class BCCHomepageSteps{
 		FileHandler.copy(srcfile, new File("C:\\Selenium WebDriver\\Screenshots\\screenshot.png"));
 		}
 		driver.quit();
-	}
-	
-	public void Wait()
-	{
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 	}
 	
 	
@@ -62,8 +56,6 @@ public class BCCHomepageSteps{
 
 	@When("I see homepage is displayed correctly")
 	public void i_see_homepage_is_displayed_correctly() throws Exception {
-		//WebElement frame = driver.findElement(By.xpath("//iframe[@id='sp_message_iframe_1091681']"));
-		//Thread.sleep(20);
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		if(driver.findElement(By.xpath("//*[@icon='list-view-text']")).isDisplayed())
 		{
@@ -78,24 +70,14 @@ public class BCCHomepageSteps{
 			driver.switchTo().defaultContent();
 			driver.findElement(By.xpath("//*[@icon='list-view-text']")).isDisplayed();
 		}
-		
-			
-		
-		
-//		WebElement frame1 = (WebElement) driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='sp_message_iframe_1091681']")));
-//	   
-//		//driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='sp_message_iframe_1091681']")).isDisplayed());
-//		
-//			driver.findElement(By.xpath("//*[text()='I agree']")).click();
-//			driver.switchTo().defaultContent();
-//		
-//		driver.findElement(By.xpath("//*[@icon='list-view-text']")).isDisplayed();
 	}
 
+	
+	
 	@Then("I verify top navigation links are displayed")
 	public void i_verify_top_navigation_links_are_displayed() {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-	    driver.findElement(By.xpath("//a[@data-testid='internal-link']//*[text()='News']")).click();	   // String newsText = driver.findElement(By.xpath("//*[@icon='news']")).getText();
+	    driver.findElement(By.xpath("//a[@data-testid='internal-link']//*[text()='News']")).click();	  
 	  String newsUrl =  driver.getCurrentUrl();
 	  String actualurl = "https://www.bbc.com/news";
 	  Assert.assertEquals(actualurl,newsUrl);
@@ -144,8 +126,6 @@ public class BCCHomepageSteps{
 		
 	WebElement str = driver.findElement((By.xpath("//input[@class='sc-e1a87ea7-1 iARAvt']")));
 	str.sendKeys("Houghton Mifflin Harcourt");
-	//driver.findElement((By.xpath(("(//button[@data-testid='search-input-search-button'])[2]")))).click();
-	
 				
 	
 	}
@@ -164,23 +144,5 @@ public class BCCHomepageSteps{
    
 	}
 	
-	
-	@When("I click on Sign In button with invalid email")
-	public static void i_click_on_sign_in_button_with_invalid_email() 
-	{
-		driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='Optimizely Internal Frame']")));
-	   driver.findElement(By.xpath("//div[@class='sc-49542412-12 ePBico']//button[@aria-label='Sign In']")).click();
-	   driver.findElement(By.xpath("//input[@id='user-identifier-input']")).sendKeys("divya@gmail.com");
-	   driver.findElement(By.xpath("//button[@type='submit']")).click();
-	   
-	   
-	}
-
-	@Then("I verify error message displayed")
-	public void i_verify_error_message_displayed() {
-		String errorDisplayed = driver.findElement(By.xpath("//a[@class='link__form-error']")).getText();
-		   String actualError = "";
-		   Assert.assertEquals(actualError, errorDisplayed);
-	}
 	
 }
